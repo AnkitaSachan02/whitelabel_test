@@ -1,10 +1,16 @@
 import React from "react";
-import { connect } from "react-redux";
 import { withTracker } from 'meteor/react-meteor-data';
 import store from "../redux/redux_store";
 import { Users } from '../../api/users';
+import { browserHistory } from "react-router";
 class Administration extends React.Component {
-  
+  componentWillUpdate() {
+    const { loginUser } = store.getState();
+    console.log("loginUser>>>",loginUser)
+    if(!loginUser || Object.keys(loginUser).length===0){
+      browserHistory.push("/login");
+    }
+  }
   render() {
     console.log("Administartion store", store);
     const { users } = this.props;
@@ -19,14 +25,27 @@ class Administration extends React.Component {
                 <th>Last Name</th>
                 <th>Email</th>
                 <th>Phone</th>
+                <th>address</th>
+                <th>city</th>
+                <th>state</th>
+                <th>zip</th>
+                <th>country</th>
+                <th>comments</th>
               </tr>
               {users.map((user,key) => {
+                let {payload:{firstName,lastName,email,phone,address,city,state,zip,country,comments}} = user;
                 return (
                   <tr key={key}>
-                    <td>{user.payload.firstName}</td>
-                    <td>{user.payload.lastName}</td>
-                    <td>{user.payload.email}</td>
-                    <td>{user.payload.phone}</td>
+                    <td>{firstName}</td>
+                    <td>{lastName}</td>
+                    <td>{email}</td>
+                    <td>{phone}</td>
+                    <td>{address}</td>
+                    <td>{city}</td>
+                    <td>{state}</td>
+                    <td>{zip}</td>
+                    <td>{country}</td>
+                    <td>{comments}</td>
                   </tr>
                 );
               })}
