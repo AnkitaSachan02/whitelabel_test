@@ -101,6 +101,7 @@ class ContactUsForm extends Component {
               value={firstName}
               onChange={this.handleInputChange("firstName")}
               name="firstName"
+              placeholder="John"
             />
             <label htmlFor="lastName">Last Name</label>
             <input
@@ -109,6 +110,7 @@ class ContactUsForm extends Component {
               id="lastName"
               value={lastName}
               name="lastName"
+              placeholder="Doe"
             />
             <label htmlFor="annualSalary">Email Address</label>
             <input
@@ -117,6 +119,7 @@ class ContactUsForm extends Component {
               id="email"
               value={email}
               name="email"
+              placeholder="info@example.com"
             />
             <label htmlFor="superRate">Telephone:</label>
             <input
@@ -125,6 +128,7 @@ class ContactUsForm extends Component {
               id="telephone"
               name="telephone"
               value={phone}
+              placeholder="(000) 000-0000"
             />
             <label htmlFor="address">Address:</label>
             <input
@@ -133,6 +137,7 @@ class ContactUsForm extends Component {
               id="address"
               name="address"
               value={address}
+              placeholder="Appartment, Building, Floor, Street"
             />
             <label htmlFor="city">City:</label>
             <input
@@ -141,6 +146,7 @@ class ContactUsForm extends Component {
               id="city"
               name="city"
               value={city}
+              placeholder="Ottawa"
             />
             <label htmlFor="state">State:</label>
             <input
@@ -149,6 +155,7 @@ class ContactUsForm extends Component {
               id="state"
               name="state"
               value={state}
+              placeholder="Ontario"
             />
             <label htmlFor="zip">Zip:</label>
             <input
@@ -157,6 +164,7 @@ class ContactUsForm extends Component {
               id="zip"
               name="zip"
               value={zip}
+              placeholder="X1X Y1Y"
             />
             <label htmlFor="country">Country:</label>
             <input
@@ -165,14 +173,16 @@ class ContactUsForm extends Component {
               id="country"
               name="country"
               value={country}
+              placeholder="Canada"
             />
             <label htmlFor="comments">Comments:</label>
-            <input
-              type="text"
+            <textarea 
+              rows="6"
               onChange={this.handleInputChange("comments")}
               id="comments"
               name="comments"
               value={comments}
+              placeholder="Write here"
             />
           </fieldset>
           <button type="button" onClick={this.onSubmit}>
