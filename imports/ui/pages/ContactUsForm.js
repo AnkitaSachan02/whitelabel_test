@@ -45,7 +45,7 @@ class ContactUsForm extends Component {
     } else if(!state){
       toastr.error("Please enter your State.", "Error");
       return false;
-    } else if(!(/^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/).test(zip)){
+    } else if(!(/^(?!.*[DFIOQU])[A-VXY][0-9][A-Z] ?[0-9][A-Z][0-9]$/).test(zip)){
       toastr.error("Please enter your Zip.", "Error");
       return false;
     } else if(!country){
@@ -101,7 +101,7 @@ class ContactUsForm extends Component {
               value={firstName}
               onChange={this.handleInputChange("firstName")}
               name="firstName"
-              placeholder="John"
+              placeholder="First Name"
             />
             <label htmlFor="lastName">Last Name</label>
             <input
@@ -110,7 +110,7 @@ class ContactUsForm extends Component {
               id="lastName"
               value={lastName}
               name="lastName"
-              placeholder="Doe"
+              placeholder="Last Name"
             />
             <label htmlFor="annualSalary">Email Address</label>
             <input
@@ -118,7 +118,7 @@ class ContactUsForm extends Component {
               onChange={this.handleInputChange("email")}
               id="email"
               value={email}
-              name="email"
+              name="Email"
               placeholder="info@example.com"
             />
             <label htmlFor="superRate">Telephone:</label>
@@ -146,7 +146,7 @@ class ContactUsForm extends Component {
               id="city"
               name="city"
               value={city}
-              placeholder="Ottawa"
+              placeholder="City"
             />
             <label htmlFor="state">State:</label>
             <input
@@ -155,7 +155,7 @@ class ContactUsForm extends Component {
               id="state"
               name="state"
               value={state}
-              placeholder="Ontario"
+              placeholder="State"
             />
             <label htmlFor="zip">Zip:</label>
             <input
@@ -164,7 +164,7 @@ class ContactUsForm extends Component {
               id="zip"
               name="zip"
               value={zip}
-              placeholder="X1X Y1Y"
+              placeholder="X1X 1Y1"
             />
             <label htmlFor="country">Country:</label>
             <input
@@ -173,7 +173,7 @@ class ContactUsForm extends Component {
               id="country"
               name="country"
               value={country}
-              placeholder="Canada"
+              placeholder="Country"
             />
             <label htmlFor="comments">Comments:</label>
             <textarea 
