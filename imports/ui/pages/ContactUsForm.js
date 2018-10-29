@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import store from "../redux/redux_store";
-import { saveContactUsInfo } from "../redux/action/actions";
 import { toastrModal } from "../toastrModal";
 import validator from 'validator';
 import { Users } from '../../api/users';
@@ -12,35 +10,71 @@ class ContactUsForm extends Component {
     lastName: "",
     email: "",
     phone: "",
+    address:"",
+    city:"",
+    state:"",
+    zip:"",
+    country:"",
+    comments:"",
     error: ""
   };
+
   onSubmit = event => {
+    console.log("User pressed the submit button");
     event.preventDefault();
     const { toastr } = this.props;
-    if (!this.state.firstName) {
+    let {firstName,lastName,email,phone,address,city,state,zip,country,comments } = this.state;
+    if (!firstName) {
       toastr.error("Please enter first name.", "Error");
       return false;
-    } else if (!this.state.lastName) {
+    } else if (!lastName) {
       toastr.error("Please enter your last name.", "Error");
       return false;
-    } else if (!validator.isEmail(this.state.email)) {
+    } else if (!validator.isEmail(email)) {
       toastr.error("Please enter valid email address.", "Error");
       return false;
-    } else if (!validator.isMobilePhone(this.state.phone)) {
+    } else if (!(/^\((\d{3})\)(\s{1})(\d{3})[-](\d{4})$/).test(phone)) {
       toastr.error("Please enter your Phone.", "Error");
       return false;
-    } 
+    } else if(!address){
+      toastr.error("Please enter your Address.", "Error");
+      return false;
+    } else if(!city){
+      toastr.error("Please enter your City.", "Error");
+      return false;
+    } else if(!state){
+      toastr.error("Please enter your State.", "Error");
+      return false;
+    } else if(!(/^(?!.*[DFIOQU])[A-VXY][0-9][A-Z] ?[0-9][A-Z][0-9]$/).test(zip)){
+      toastr.error("Please enter your Zip.", "Error");
+      return false;
+    } else if(!country){
+      toastr.error("Please enter your Country.", "Error");
+      return false;
+    } else if(!comments){
+      toastr.error("Please enter your Comments.", "Error");
+      return false;
+    }
 
     let payload = {
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      email: this.state.email,
-      phone: this.state.phone
+      firstName,
+      lastName,
+      email,
+      phone,
+      address,
+      city,
+      state,
+      zip,
+      country,
+      comments
     };
 
     Users.insert({
       payload,
       createdAt: new Date(), // current time
+    },(error, result)=>{
+      if(error) return;
+      console.log("user information id is >>>>", result);
     });
     toastr.success(
       "Your information has been added successfully!!!",
@@ -54,6 +88,7 @@ class ContactUsForm extends Component {
     });
   };
   render() {
+    let {firstName,lastName,email,phone,address,city,state,zip,country,comments } = this.state;
     return (
       <div className="">
         <form>
@@ -63,33 +98,91 @@ class ContactUsForm extends Component {
             <input
               type="text"
               id="firstName"
-              value={this.state.firstName}
+              value={firstName}
               onChange={this.handleInputChange("firstName")}
               name="firstName"
-              required
+              placeholder="First Name"
             />
             <label htmlFor="lastName">Last Name</label>
             <input
               type="text"
               onChange={this.handleInputChange("lastName")}
               id="lastName"
-              value={this.state.lastName}
+              value={lastName}
               name="lastName"
+              placeholder="Last Name"
             />
             <label htmlFor="annualSalary">Email Address</label>
             <input
               type="email"
               onChange={this.handleInputChange("email")}
               id="email"
-              name="email"
+              value={email}
+              name="Email"
+              placeholder="info@example.com"
             />
             <label htmlFor="superRate">Telephone:</label>
             <input
-              type="number"
+              type="text"
               onChange={this.handleInputChange("phone")}
               id="telephone"
               name="telephone"
-              value={this.state.phone}
+              value={phone}
+              placeholder="(000) 000-0000"
+            />
+            <label htmlFor="address">Address:</label>
+            <input
+              type="text"
+              onChange={this.handleInputChange("address")}
+              id="address"
+              name="address"
+              value={address}
+              placeholder="Appartment, Building, Floor, Street"
+            />
+            <label htmlFor="city">City:</label>
+            <input
+              type="text"
+              onChange={this.handleInputChange("city")}
+              id="city"
+              name="city"
+              value={city}
+              placeholder="City"
+            />
+            <label htmlFor="state">State:</label>
+            <input
+              type="text"
+              onChange={this.handleInputChange("state")}
+              id="state"
+              name="state"
+              value={state}
+              placeholder="State"
+            />
+            <label htmlFor="zip">Zip:</label>
+            <input
+              type="text"
+              onChange={this.handleInputChange("zip")}
+              id="zip"
+              name="zip"
+              value={zip}
+              placeholder="X1X 1Y1"
+            />
+            <label htmlFor="country">Country:</label>
+            <input
+              type="text"
+              onChange={this.handleInputChange("country")}
+              id="country"
+              name="country"
+              value={country}
+              placeholder="Country"
+            />
+            <label htmlFor="comments">Comments:</label>
+            <textarea 
+              rows="6"
+              onChange={this.handleInputChange("comments")}
+              id="comments"
+              name="comments"
+              value={comments}
+              placeholder="Write here"
             />
           </fieldset>
           <button type="button" onClick={this.onSubmit}>

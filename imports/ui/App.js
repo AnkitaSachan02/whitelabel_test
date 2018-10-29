@@ -18,6 +18,9 @@ class App extends Component {
     browserHistory.push("/login");
   };
 
+  onClick=(name)=>{
+    console.log(name," button in menu")
+  }
   render() {
     var currentLocation = this.props.location.pathname;
     const { loginUser } = store.getState();
@@ -28,7 +31,7 @@ class App extends Component {
       <div className="App">
           <MenuList>
             <MenuItem>
-                <Link to="/" onClick={this.home} className={currentLocation === "/" ? "active" : ""}>
+                <Link to="/" onClick={()=>{this.onClick("Home")}} className={currentLocation === "/" ? "active" : ""}>
                   Home
                 </Link>
             </MenuItem>
@@ -46,7 +49,7 @@ class App extends Component {
             )}
             {loginUser && !loginUser.loginUser && (
               <MenuItem>
-                <Link to="/login" onClick={this.login} className={currentLocation === "/login" ? "active" : ""}>Sign in</Link>
+                <Link to="/login" onClick={()=>{this.onClick("Sign in")}} className={currentLocation === "/login" ? "active" : ""}>Sign in</Link>
               </MenuItem>
             )}
           </MenuList>
